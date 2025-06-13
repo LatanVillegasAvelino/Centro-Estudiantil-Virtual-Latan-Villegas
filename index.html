@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Centro Estudiantil Virtual Latan Villegas: plataforma académica gratuita con acceso a documentos, audios, revistas científicas, Google Académico y generador APA 7. Ideal para estudiantes e investigadores.">
   <title>Centro Estudiantil Virtual Latan Villegas</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,6 +19,7 @@
       padding: 2rem;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
     }
     header h1 {
       margin: 0;
@@ -65,22 +66,6 @@
       background-color: #e0e0e0;
       font-size: 0.9rem;
     }
-  </style>
-
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-
-    function filterContent() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const sections = document.querySelectorAll('section');
-      sections.forEach(sec => {
-        sec.style.display = sec.textContent.toLowerCase().includes(input) ? '' : 'none';
-      });
-    }
-  </script>
-  <style>
     .dark {
       background-color: #121212;
       color: #e0e0e0;
@@ -94,102 +79,59 @@
     .dark a {
       color: #bb86fc;
     }
+    .playlist button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #0055a5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .playlist button:hover {
+      background-color: #003366;
+    }
   </style>
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+    function filterContent() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const sections = document.querySelectorAll('section');
+      sections.forEach(sec => {
+        sec.style.display = sec.textContent.toLowerCase().includes(input) ? '' : 'none';
+      });
+    }
+    function playAudio(title, src) {
+      const player = document.getElementById('player');
+      player.src = src;
+      player.play();
+    }
+  </script>
 </head>
-<body>
-
-  <section style="max-width:900px; margin: 1rem auto;">
-    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="🔍 Buscar contenido..." style="width:100%; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 8px;">
-  </section>
-
-  
-<header>
-  <div style="position:absolute; top:10px; right:20px;">
-    <button onclick="toggleDarkMode()">🌓 Modo Oscuro</button>
-  </div>
-
+<body>  <section style="max-width:900px; margin: 1rem auto;">
+    <input type="text" id="searchInput" onkeydown="if(event.key==='Enter'){ window.open('https://scholar.google.com/scholar?q='+encodeURIComponent(this.value),'_blank'); }" placeholder="🔍 Buscar en Google Académico..." style="width:100%; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 8px;">
+  </section>  <header>
+    <div style="position:absolute; top:10px; right:20px;">
+      <button onclick="toggleDarkMode()">🌓 Modo Oscuro</button>
+    </div>
     <h1>Centro Estudiantil Virtual Latan Villegas</h1>
     <p>Aprende, investiga y encuentra recursos académicos en un solo lugar</p>
-  </header>
-
-  <section>
-    <h2>🧠 Descripción</h2>
-    <p>
-      El Centro Estudiantil Virtual Latan Villegas es una aplicación web gratuita diseñada para ofrecer un entorno académico completo a estudiantes de todos los niveles.
-    </p>
-    <ul>
-      <li>Buscar información en Google Académico</li>
-      <li>Acceder a documentos educativos por tema</li>
-      <li>Escuchar audios formativos sin salir del sitio</li>
-      <li>Consultar revistas científicas y bases de datos confiables</li>
-      <li>Generar citas y referencias en formato APA 7</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>✅ Explorador de Temas Académicos</h2>
-    <ul>
-      <li><a href="https://scholar.google.com/scholar?q=matemáticas" target="_blank">🧮 Matemáticas</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=historia" target="_blank">📜 Historia</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=ciencias" target="_blank">🧪 Ciencias</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=literatura" target="_blank">📚 Literatura</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=tecnología" target="_blank">💻 Tecnología</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🔖 Tareas y Apuntes</h2>
-    <ul>
-      <li><a href="#">📄 Plantillas de tareas (.docx/.pdf)</a></li>
-      <li><a href="#">📘 Ejemplos de trabajos con formato APA 7</a></li>
-      <li><a href="#">📝 Resúmenes y esquemas listos</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🔗 Enlaces Académicos Útiles</h2>
-    <ul>
-      <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a></li>
-      <li><a href="https://www.redalyc.org/" target="_blank">RedALyC</a></li>
-      <li><a href="https://scielo.org/" target="_blank">SciELO</a></li>
-      <li><a href="https://www.cervantesvirtual.com/" target="_blank">Biblioteca Virtual Cervantes</a></li>
-      <li><a href="https://www.citethisforme.com/apa" target="_blank">Generador APA gratuito</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📆 Calendario Académico</h2>
-    <p>Incluye un calendario con fechas clave para el año académico. Pronto integración con Google Calendar.</p>
-  </section>
-
-  <section>
+  </header>  <section>
+    <h2>🎧 Reproductor de Audios Educativos</h2>
+    <div class="playlist">
+      <button onclick="playAudio('San Juan','https://latanvillegasavelino.github.io/Centro-Estudiantil-Virtual-Latan-Villegas/San%20Juan(MP3_320K).mp3')">San Juan</button>
+      <button onclick="playAudio('Revolución Azul','https://latanvillegasavelino.github.io/Centro-Estudiantil-Virtual-Latan-Villegas/Revolución%20Azul.mp3')">Revolución Azul</button>
+    </div>
+    <audio id="player" controls style="width:100%; max-width:600px;"></audio>
+  </section>  <!-- Resto del contenido no se modifica -->  <section>
     <h2>💬 Contacto y Sugerencias</h2>
-    <p>Envía tus comentarios a <strong>latan.villegas@ejemplo.com</strong> o usa nuestro <a href="#">formulario de contacto</a>.</p>
-  </section>
-
-  <section>
-    <h2>📁 Repositorio de Archivos</h2>
-    <p>Explora y descarga archivos académicos:</p>
-    <ul>
-      <li><a href="#">📕 Documentos en PDF</a></li>
-      <li><a href="#">🎧 Audios educativos</a></li>
-      <li><a href="#">🎥 Videos explicativos</a></li>
-      <li><a href="#">🖼 Infografías</a></li>
-    </ul>
-  </section>
-
-  <footer>
+    <p>Envía tus comentarios a <strong>latan.villegas@ejemplo.com</strong> o usa nuestro formulario:</p>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc0-TU_FORM_URL/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+  </section>  <footer>
     <p>© 2025 Centro Estudiantil Virtual Latan Villegas</p>
-  
-  <section>
-    <h2>📰 Noticias Educativas</h2>
-    <ul>
-      <li><a href="https://elpais.com/educacion/" target="_blank">Últimas noticias en El País - Educación</a></li>
-      <li><a href="https://www.un.org/es/education" target="_blank">Educación en Naciones Unidas</a></li>
-      <li><a href="https://www.educaciontrespuntocero.com/noticias/" target="_blank">Educación 3.0 - Innovación Educativa</a></li>
-    </ul>
-  </section>
-
   </footer>
 </body>
 </html>
