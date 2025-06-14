@@ -5,213 +5,733 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Centro Estudiantil Virtual Latan Villegas: plataforma académica gratuita con acceso a documentos, audios, revistas científicas, Google Académico y generador APA 7. Ideal para estudiantes e investigadores.">
   <title>Centro Estudiantil Virtual Latan Villegas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary: #003366;
+      --secondary: #0055a5;
+      --accent: #ff6b00;
+      --light: #f0f2f5;
+      --dark: #121212;
+      --text-light: #333;
+      --text-dark: #e0e0e0;
+      --card-bg-light: #ffffff;
+      --card-bg-dark: #1e1e1e;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f0f2f5;
-      color: #333;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
     }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    
+    body.dark {
+      background-color: var(--dark);
+      color: var(--text-dark);
+    }
+    
+    /* Header */
     header {
-      background: linear-gradient(135deg, #003366, #0055a5);
-      color: #fff;
-      padding: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem 1rem;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
     }
-    section {
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .logo {
       background: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--secondary);
+      box-shadow: var(--shadow);
+    }
+    
+    header h1 {
+      font-size: 2.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* Controls */
+    .controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .control-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+    
+    /* Search */
+    .search-section {
+      background: var(--card-bg-light);
+      max-width: 900px;
+      margin: 1rem auto;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    
+    body.dark .search-section {
+      background: var(--card-bg-dark);
+    }
+    
+    .search-container {
+      position: relative;
+      display: flex;
+    }
+    
+    .search-container input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      outline: none;
+    }
+    
+    body.dark .search-container input {
+      background: #2a2a2a;
+      border-color: #444;
+      color: var(--text-dark);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+    }
+    
+    /* Navigation */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+    
+    .tab {
+      background: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+    }
+    
+    body.dark .tab {
+      background: #2a2a2a;
+      color: var(--text-dark);
+    }
+    
+    .tab.active, .tab:hover {
+      background: var(--accent);
+      color: white;
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
       margin: 2rem auto;
+      padding: 0 15px;
+    }
+    
+    .section {
+      background: var(--card-bg-light);
+      margin-bottom: 2rem;
       padding: 2rem;
       border-radius: 12px;
-      max-width: 900px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      display: none;
     }
-    h2 {
-      color: #003366;
-      border-left: 4px solid #0055a5;
-      padding-left: 10px;
+    
+    body.dark .section {
+      background: var(--card-bg-dark);
     }
-    ul {
+    
+    .section.active {
+      display: block;
+    }
+    
+    .section-title {
+      color: var(--primary);
+      border-left: 4px solid var(--secondary);
+      padding-left: 15px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    body.dark .section-title {
+      color: var(--text-dark);
+    }
+    
+    /* Lists */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .feature-card {
+      background: rgba(0, 85, 165, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+    
+    body.dark .feature-card {
+      background: rgba(0, 85, 165, 0.1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-card h3 {
+      color: var(--secondary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .feature-list {
       list-style: none;
       padding-left: 0;
     }
-    ul li {
-      margin-bottom: 0.5rem;
-      padding-left: 1.2rem;
+    
+    .feature-list li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.8rem;
       position: relative;
     }
-    ul li::before {
-      content: '\2714';
+    
+    .feature-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
       position: absolute;
       left: 0;
-      color: #0055a5;
+      color: var(--accent);
     }
-    a {
-      color: #0055a5;
+    
+    .feature-list a {
+      color: var(--secondary);
       text-decoration: none;
+      transition: all 0.3s;
     }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #e0e0e0;
-      font-size: 0.9rem;
-    }
-    .dark {
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-    .dark header {
-      background: linear-gradient(135deg, #111, #222);
-    }
-    .dark section {
-      background-color: #1e1e1e;
-    }
-    .dark a {
+    
+    body.dark .feature-list a {
       color: #bb86fc;
     }
+    
+    .feature-list a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+    
+    /* APA Generator */
+    .apa-generator {
+      background: rgba(255, 107, 0, 0.05);
+      border-radius: 10px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+    
+    body.dark .apa-generator {
+      background: rgba(255, 107, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    body.dark .form-group input, 
+    body.dark .form-group select, 
+    body.dark .form-group textarea {
+      background: #2a2a2a;
+      border-color: #444;
+      color: var(--text-dark);
+    }
+    
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .btn:hover {
+      background: #e05a00;
+      transform: translateY(-2px);
+    }
+    
+    .citation-result {
+      margin-top: 25px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+      display: none;
+    }
+    
+    body.dark .citation-result {
+      background: #2a2a2a;
+    }
+    
+    /* Calendar */
+    .calendar-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    @media (min-width: 992px) {
+      .calendar-container {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+    
+    .events-list {
+      background: rgba(0, 85, 165, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    
+    body.dark .events-list {
+      background: rgba(0, 85, 165, 0.1);
+    }
+    
+    .event-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    body.dark .event-item {
+      border-bottom: 1px solid #333;
+    }
+    
+    .event-date {
+      min-width: 70px;
+      text-align: center;
+    }
+    
+    .event-day {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    
+    .event-month {
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--secondary);
+    }
+    
+    .event-content h4 {
+      margin-bottom: 5px;
+    }
+    
+    /* Library */
+    .library-search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .resource-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+    }
+    
+    body.dark .resource-card {
+      background: #2a2a2a;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .resource-icon {
+      height: 120px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+    }
+    
+    .resource-content {
+      padding: 20px;
+    }
+    
+    .resource-content h3 {
+      margin-bottom: 10px;
+      color: var(--secondary);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--primary);
+      color: white;
+      margin-top: 2rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 15px 0;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
   </style>
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-    function filterContent() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const sections = document.querySelectorAll('section');
-      sections.forEach(sec => {
-        sec.style.display = sec.textContent.toLowerCase().includes(input) ? '' : 'none';
-      });
-    }
-  </script>
 </head>
 <body>
 
-  <section style="max-width:900px; margin: 1rem auto;">
-    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="🔍 Buscar contenido..." style="width:100%; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 8px;">
-  </section>
-
+  <!-- Header -->
   <header>
-    <div style="position:absolute; top:10px; right:20px;">
-      <button onclick="toggleDarkMode()">🌓 Modo Oscuro</button>
+    <div class="header-content">
+      <div class="controls">
+        <button class="control-btn" onclick="toggleDarkMode()" title="Modo oscuro/claro">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="control-btn" onclick="resetApp()" title="Reiniciar">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+      
+      <div class="logo-container">
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div>
+          <h1>Centro Estudiantil Virtual Latan Villegas</h1>
+          <p>Aprende, investiga y encuentra recursos académicos en un solo lugar</p>
+        </div>
+      </div>
     </div>
-    <h1>Centro Estudiantil Virtual Latan Villegas</h1>
-    <p>Aprende, investiga y encuentra recursos académicos en un solo lugar</p>
   </header>
 
-  <section>
-    <h2>🤖 Inteligencia Artificial para Estudiar</h2>
-    <p>Accede a herramientas de IA que te ayudarán a redactar, resumir, investigar y resolver dudas académicas:</p>
-    <ul>
-      <li><a href="https://chat.deepseek.com" target="_blank">🧠 DeepSeek Chat</a> – Ideal para tareas complejas y escritura académica avanzada.</li>
-      <li><a href="https://gemini.google.com" target="_blank">🌟 Gemini IA (Google)</a> – Perfecta para resúmenes, análisis de texto y búsqueda rápida.</li>
-    </ul>
-  </section>
+  <!-- Search -->
+  <div class="search-section">
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar recursos académicos...">
+    </div>
+  </div>
 
-  <section>
-    <h2>🧠 Descripción</h2>
-    <p>
-      El Centro Estudiantil Virtual Latan Villegas es una aplicación web gratuita diseñada para ofrecer un entorno académico completo a estudiantes de todos los niveles.
-    </p>
-    <ul>
-      <li>Buscar información en Google Académico</li>
-      <li>Acceder a documentos educativos por tema</li>
-      <li>Escuchar audios formativos sin salir del sitio</li>
-      <li>Consultar revistas científicas y bases de datos confiables</li>
-      <li>Generar citas y referencias en formato APA 7</li>
-    </ul>
-  </section>
+  <!-- Navigation Tabs -->
+  <div class="tabs">
+    <div class="tab active" onclick="showSection('inicio')">Inicio</div>
+    <div class="tab" onclick="showSection('recursos')">Recursos</div>
+    <div class="tab" onclick="showSection('apa')">APA 7</div>
+    <div class="tab" onclick="showSection('calendario')">Calendario</div>
+    <div class="tab" onclick="showSection('biblioteca')">Biblioteca</div>
+    <div class="tab" onclick="showSection('contacto')">Contacto</div>
+  </div>
 
-  <section>
-    <h2>✅ Explorador de Temas Académicos</h2>
-    <ul>
-      <li><a href="https://scholar.google.com/scholar?q=matemáticas" target="_blank">🧮 Matemáticas</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=historia" target="_blank">📜 Historia</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=ciencias" target="_blank">🧪 Ciencias</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=literatura" target="_blank">📚 Literatura</a></li>
-      <li><a href="https://scholar.google.com/scholar?q=tecnología" target="_blank">💻 Tecnología</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🔖 Tareas y Apuntes</h2>
-    <ul>
-      <li><a href="#">📄 Plantillas de tareas (.docx/.pdf)</a></li>
-      <li><a href="#">📘 Ejemplos de trabajos con formato APA 7</a></li>
-      <li><a href="#">📝 Resúmenes y esquemas listos</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🔗 Enlaces Académicos Útiles</h2>
-    <ul>
-      <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a></li>
-      <li><a href="https://www.redalyc.org/" target="_blank">RedALyC</a></li>
-      <li><a href="https://scielo.org/" target="_blank">SciELO</a></li>
-      <li><a href="https://www.cervantesvirtual.com/" target="_blank">Biblioteca Virtual Cervantes</a></li>
-      <li><a href="https://www.citethisforme.com/apa" target="_blank">Generador APA gratuito</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📆 Calendario Académico</h2>
-    <p>Consulta el calendario general del ciclo académico y añade tus propios recordatorios:</p>
-    <iframe src="https://calendar.google.com/calendar/embed?src=tu_calendario@gmail.com&ctz=America%2FLima"
-      style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
-    <hr style="margin: 2rem 0;">
-    <h3>📌 Añadir eventos a tu propio Google Calendar:</h3>
-    <ul>
-      <li>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Entrega+de+tarea&dates=20250701T150000Z/20250701T160000Z&details=Subir+trabajo+APA+7+al+campus&location=Aula+Virtual"
-          target="_blank">📝 Entrega de tarea (1 julio)</a>
-      </li>
-      <li>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Examen+final+de+Ciencias&dates=20250710T140000Z/20250710T153000Z&details=Evaluación+en+plataforma+online&location=Campus+Virtual"
-          target="_blank">🧪 Examen final de Ciencias (10 julio)</a>
-      </li>
-      <li>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Inicio+de+clases&dates=20250805T130000Z/20250805T140000Z&details=Comienzo+del+nuevo+ciclo+académico&location=Centro+Estudiantil+Virtual"
-          target="_blank">📚 Inicio de clases (5 agosto)</a>
-      </li>
-    </ul>
-    <p style="font-size: 0.9rem; color: gray;">* Al hacer clic, se abrirá Google Calendar para añadir el evento a tu calendario personal.</p>
-  </section>
-
-  <section>
-    <h2>💬 Contacto y Sugerencias</h2>
-    <p>¿Tienes ideas o sugerencias? Escríbenos a <strong><a href="mailto:alv.oficial123@gmail.com">alv.oficial123@gmail.com</a></strong>
-       o utiliza nuestro <a href="#">formulario de contacto</a>.</p>
-  </section>
-
-  <section>
-    <h2>📁 Repositorio de Archivos</h2>
-    <p>Explora y descarga archivos académicos:</p>
-    <ul>
-      <li><a href="#">📕 Documentos en PDF</a></li>
-      <li><a href="#">🎧 Audios educativos</a></li>
-      <li><a href="#">🎥 Videos explicativos</a></li>
-      <li><a href="#">🖼 Infografías</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📰 Noticias Educativas</h2>
-    <ul>
-      <li><a href="https://elpais.com/educacion/" target="_blank">Últimas noticias en El País - Educación</a></li>
-      <li><a href="https://www.un.org/es/education" target="_blank">Educación en Naciones Unidas</a></li>
-      <li><a href="https://www.educaciontrespuntocero.com/noticias/" target="_blank">Educación 3.0 - Innovación Educativa</a></li>
-    </ul>
-  </section>
-
-  <footer>
-    <p>© 2025 Centro Estudiantil Virtual Latan Villegas</p>
-  </footer>
-</body>
-</html>
+  <!-- Main Content -->
+  <div class="container">
+    
+    <!-- Inicio Section -->
+    <div id="inicio" class="section active">
+      <h2 class="section-title"><i class="fas fa-home"></i> Bienvenido al Centro Estudiantil</h2>
+      <p>Tu plataforma académica integral para estudiar, investigar y organizar tus tareas. Explora nuestros recursos:</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><i class="fas fa-robot"></i> Inteligencia Artificial</h3>
+          <ul class="feature-list">
+            <li><a href="https://chat.deepseek.com" target="_blank">DeepSeek Chat</a> - Asistente avanzado para tareas complejas</li>
+            <li><a href="https://gemini.google.com" target="_blank">Gemini IA (Google)</a> - Resúmenes y análisis de texto</li>
+            <li><a href="https://www.chatpdf.com" target="_blank">ChatPDF</a> - Analiza documentos PDF</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-book"></i> Recursos Académicos</h3>
+          <ul class="feature-list">
+            <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a> - Buscador académico</li>
+            <li><a href="https://www.redalyc.org/" target="_blank">RedALyC</a> - Revistas científicas</li>
+            <li><a href="https://scielo.org/" target="_blank">SciELO</a> - Biblioteca científica</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-tools"></i> Herramientas</h3>
+          <ul class="feature-list">
+            <li>Generador APA 7 - Crea citas perfectas</li>
+            <li>Calendario académico - Organiza tus fechas</li>
+            <li>Biblioteca virtual - Miles de recursos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recursos Section -->
+    <div id="recursos" class="section">
+      <h2 class="section-title"><i class="fas fa-book-open"></i> Recursos Académicos</h2>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><i class="fas fa-calculator"></i> Matemáticas</h3>
+          <ul class="feature-list">
+            <li><a href="https://scholar.google.com/scholar?q=matemáticas" target="_blank">Artículos de matemáticas</a></li>
+            <li><a href="#">Fórmulas y teoremas</a></li>
+            <li><a href="#">Ejercicios resueltos</a></li>
+            <li><a href="#">Calculadoras avanzadas</a></li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-flask"></i> Ciencias</h3>
+          <ul class="feature-list">
+            <li><a href="https://scholar.google.com/scholar?q=ciencias" target="_blank">Investigaciones científicas</a></li>
+            <li><a href="#">Experimentos virtuales</a></li>
+            <li><a href="#">Biografías de científicos</a></li>
+            <li><a href="#">Simuladores de física</a></li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-history"></i> Historia</h3>
+          <ul class="feature-list">
+            <li><a href="https://scholar.google.com/scholar?q=historia" target="_blank">Documentos históricos</a></li>
+            <li><a href="#">Líneas de tiempo interactivas</a></li>
+            <li><a href="#">Biografías de personajes</a></li>
+            <li><a href="#">Mapas históricos</a></li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-laptop-code"></i> Tecnología</h3>
+          <ul class="feature-list">
+            <li><a href="https://scholar.google.com/scholar?q=tecnología" target="_blank">Avances tecnológicos</a></li>
+            <li><a href="#">Tutoriales de programación</a></li>
+            <li><a href="#">Recursos de IA</a></li>
+            <li><a href="#">Cursos de desarrollo web</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- APA Generator Section -->
+    <div id="apa" class="section">
+      <h2 class="section-title"><i class="fas fa-quote-right"></i> Generador APA 7</h2>
+      <p>Crea citas perfectas en formato APA 7ma edición para tus trabajos académicos.</p>
+      
+      <div class="apa-generator">
+        <div class="form-group">
+          <label for="sourceType">Tipo de fuente:</label>
+          <select id="sourceType" onchange="updateApaForm()">
+            <option value="book">Libro</option>
+            <option value="article">Artículo de revista</option>
+            <option value="website">Sitio web</option>
+            <option value="chapter">Capítulo de libro</option>
+          </select>
+        </div>
+        
+        <div id="apaForm">
+          <div class="form-group">
+            <label for="author">Autor(es):</label>
+            <input type="text" id="author" placeholder="Apellido, Inicial. (Ej: Pérez, J.)">
+          </div>
+          
+          <div class="form-group">
+            <label for="year">Año de publicación:</label>
+            <input type="number" id="year" min="1900" max="2099" placeholder="2023">
+          </div>
+          
+          <div class="form-group">
+            <label for="title">Título:</label>
+            <input type="text" id="title" placeholder="Título del libro o artículo">
+          </div>
+          
+          <div class="form-group">
+            <label for="publisher">Editorial:</label>
+            <input type="text" id="publisher" placeholder="Nombre de la editorial">
+          </div>
+        </div>
+        
+        <button class="btn" onclick="generateCitation()">
+          <i class="fas fa-magic"></i> Generar Cita
+        </button>
+        
+        <div class="citation-result" id="citationResult">
+          <h3>Tu cita APA 7:</h3>
+          <p id="citationText"></p>
+          <button class="btn" onclick="copyCitation()" style="margin-top: 15px;">
+            <i class="fas fa-copy"></i> Copiar al Portapapeles
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Calendario Section -->
+    <div id="calendario" class="section">
+      <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Calendario Académico</h2>
+      
+      <div class="calendar-container">
+        <div>
+          <iframe src="https://calendar.google.com/calendar/embed?src=es.pe%23holiday%40group.v.calendar.google.com&ctz=America%2FLima" 
+                  style="border: 0; width:100%; height:500px;" frameborder="0" scrolling="no"></iframe>
+        </div>
+        
+        <div class="events-list">
+          <h3>Próximos Eventos</h3>
+          
+          <div class="event-item">
+            <div class="event-date">
+              <div class="event-day">15</div>
+              <div class="event-month">Jul</div>
+            </div>
+            <div class="event-content">
+              <h4>Entrega de trabajos finales</h4>
+              <p>Fecha límite para entrega de todos los trabajos del semestre</p>
+            </div>
+          </div>
+          
+          <div class="event-item">
+            <div class="event-date">
+              <div class="event-day">22</div>
+              <div class="event-month">Jul</div>
+            </div>
+            <div class="event-content">
+              <h4>Exámenes finales</h4>
+              <p>Inicio del periodo de exámenes finales</p>
+            </div>
+          </div>
+          
+          <div class="event-item">
+            <div class="event-date">
+              <div class="event-day">05</div>
+              <div class="event-month">Ago</div>
+            </div>
+            <div class="event-content">
+              <h4>Inicio de nuevo ciclo</h4>
+              <p>Comienzo del semestre académico 2025-2</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Biblioteca Section -->
+    <div id="biblioteca" class="section">
+      <h2 class="section-title"><i class="fas fa-book"></i> Biblioteca Virtual</h2>
+      
+      <div class="library-search">
+        <div class="search-container" style="flex-grow: 1;">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="librarySearch" placeholder="Buscar en la biblioteca...">
+        </div>
+        <button
